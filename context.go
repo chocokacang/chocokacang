@@ -11,4 +11,5 @@ type Context struct {
 
 func (c *Context) init() {
 	c.Response = &c.writer
+
 }

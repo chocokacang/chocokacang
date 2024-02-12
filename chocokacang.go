@@ -1,11 +1,10 @@
 package chocokacang
 
 import (
-	"fmt"
 	"net/http"
-	"os"
 	"sync"
 
+	"github.com/chocokacang/chocokacang/config"
 	"github.com/chocokacang/chocokacang/log"
 )
 
@@ -16,8 +15,6 @@ type CK struct {
 }
 
 func New() *CK {
-	fmt.Print(os.Environ())
-
 	// Create environment instance
 	env := &CK{}
 
@@ -50,8 +47,6 @@ func (env *CK) ServeHTTP(rsw http.ResponseWriter, rq *http.Request) {
 	// Get context instance from the pool
 	c := env.pool.Get().(*Context)
 
-	log.Info("Run the server in localhost:%s", 8080)
-
 	rsw.WriteHeader(http.StatusNotFound)
 	rsw.WriteHeader(http.StatusOK)
 
@@ -62,11 +57,7 @@ func (env *CK) ServeHTTP(rsw http.ResponseWriter, rq *http.Request) {
 }
 
 func (env *CK) Run() {
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
-	}
-
+	port := config.Get.AppPort
 	log.Info("Run the server in localhost:%s", port)
 
 	server := &http.Server{

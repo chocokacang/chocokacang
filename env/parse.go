@@ -1,10 +1,9 @@
-package utils
+package env
 
 import (
 	"bytes"
 	"errors"
 	"fmt"
-	"os"
 	"regexp"
 	"strings"
 	"unicode"
@@ -269,18 +268,4 @@ func expandVariables(v string, m map[string]string) string {
 		}
 		return s
 	})
-}
-
-// UnmarshalBytes parses env file from byte slice of chars, returning a map of keys and values.
-func UnmarshalBytes(src []byte) (map[string]string, error) {
-	out := make(map[string]string)
-	err := parseBytes(src, out)
-
-	return out, err
-}
-
-func GetenvBool(key string) bool {
-	val := os.Getenv(key)
-	varLower := strings.ToLower(val)
-	return varLower == "true"
 }

@@ -51,10 +51,10 @@ func GetEnvLevel() Level {
 	switch level {
 	case "INFO":
 		return INFO
-	case "WARNING":
-		return WARNING
-	default:
+	case "ERROR":
 		return ERROR
+	default:
+		return WARNING
 	}
 }
 
